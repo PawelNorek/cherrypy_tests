@@ -1,6 +1,7 @@
 import os, os.path
 import random
 import sqlite3
+import mariadb
 import string
 import time
 
@@ -9,6 +10,21 @@ cherrypy.config.update({'server.socket_host': '192.168.1.191', 'server.socket_po
 
 DB_STRING = "my.db"
 
+try:
+    mariadbconn = mariadb.connect(
+        user="python_test",
+        password="python_test",
+        host="192.168.1.200",
+        port=3306,
+        database="python_test"
+    )
+except mariadb.Error as e:
+    print(f"Error connecting to MariaDB Platform: {e}")
+    sys.exit(1)
+
+mariadbcur = mariadbconn.cursor()
+
+mariadbcur.execute("CREATE TABLE `python_test`.`user_string` (`session_id` INT NOT NULL , `value` INT NOT NULL ) ENGINE = InnoDB;")
 
 class StringGenerator(object):
     @cherrypy.expose
