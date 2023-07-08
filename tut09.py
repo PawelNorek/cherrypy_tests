@@ -4,19 +4,24 @@ import sqlite3
 import mariadb
 import string
 import time
+from dotenv import dotenv_values
 
 import cherrypy
 cherrypy.config.update({'server.socket_host': '192.168.1.191', 'server.socket_port': 8099})
 
 DB_STRING = "my.db"
 
+secrets=dotenv_values(".env")
+
+print(secrets)
+
 try:
     mariadbconn = mariadb.connect(
-        user="python_test",
-        password="python_test",
-        host="192.168.1.200",
-        port=3306,
-        database="python_test"
+        user=secrets["user"],
+        password=secrets["password"],
+        host=secrets["host"],
+        port=int(secrets["port"]),
+        database=secrets["database"]
     )
 except mariadb.Error as e:
     print(f"Error connecting to MariaDB Platform: {e}")

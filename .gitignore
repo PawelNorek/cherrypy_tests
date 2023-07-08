@@ -5,3 +5,4 @@ lib/
 lib64
 my.db
 pyvenv.cfg
+.env
