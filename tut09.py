@@ -34,15 +34,14 @@ except:
     print("Tworzę")
     mariadbcur.execute("CREATE TABLE `python_test`.`user_string` (`session_id` TEXT NOT NULL , `value` TEXT NOT NULL ) ENGINE = InnoDB;")
 
-# mariadbcur.execute("INSERT INTO user_string (session_id, value) VALUES (?, ?)", ("Maria", "db"))
-# mariadbconn.commit()
-
 class StringGenerator(object):
     @cherrypy.expose
     def index(self):
         return open('index.html')
 
 @cherrypy.expose
+# @cherrypy.tools.json_out()
+# @cherrypy.tools.json_in(force=False)
 class StringGeneratorWebService(object):
 
     @cherrypy.tools.accept(media='text/plain')
